@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Inmaculada</title>
+<meta name="description" content="App del Centro de Especialidades Médicas La Inmaculada C.A., San Cristóbal, Táchira.">
+<meta name="theme-color" content="#0A67BC">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="La Inmaculada">
+<style>
+:root{
+  --azul:#0A67BC; --azul-osc:#0B2540; --turq:#0CC4D1; --celeste:#65CFF3;
+  --fondo:#F3FAFB; --tarjeta:#fff; --texto:#24384A; --suave:#4A6478; --borde:#D6E8F0;
+  --verde:#1FA855; --aviso:#FFF6E0; --aviso-borde:#F2C14E;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--fondo);color:var(--texto);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.45}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.app{max-width:560px;margin:0 auto;min-height:100vh;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+
+/* Cabecera */
+.top{position:sticky;top:0;z-index:5;background:linear-gradient(135deg,var(--azul-osc) 0%,var(--azul) 55%,var(--turq) 100%);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 10px rgba(11,37,64,.25)}
+.top .back{width:36px;height:36px;border-radius:50%;display:none;align-items:center;justify-content:center;background:rgba(255,255,255,.16)}
+.top.sub .back{display:flex}
+.top h1{margin:0;font-size:18px;font-weight:700;flex:1}
+.top img{height:34px;width:auto;background:#fff;border-radius:8px;padding:3px 6px}
+
+/* Portada */
+.hero{background:linear-gradient(160deg,var(--azul-osc) 0%,var(--azul) 50%,var(--turq) 100%);color:#fff;padding:calc(18px + env(safe-area-inset-top)) 16px 64px;text-align:center;position:relative;overflow:hidden}
+.hero .logo{background:#fff;border-radius:20px;padding:12px 16px;display:inline-block;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.hero .logo img{width:min(280px,72vw);height:auto;display:block}
+.hero p{margin:14px 0 0;font-size:17px;font-weight:600;letter-spacing:.2px}
+.hero svg.ola{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:46px}
+.wrap{padding:0 16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:-40px;position:relative}
+.btn-tile{background:var(--tarjeta);border-radius:18px;padding:16px 12px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;box-shadow:0 4px 14px rgba(11,37,64,.08);border:1px solid var(--borde);min-height:112px}
+.btn-tile .ic{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#E6F4F8;color:var(--azul)}
+.btn-tile b{font-size:15px;color:var(--azul-osc)}
+.btn-tile small{color:var(--suave);font-size:12.5px;line-height:1.3}
+.btn-tile.main{grid-column:1/-1;flex-direction:row;align-items:center;background:linear-gradient(135deg,var(--azul),var(--turq));color:#fff;border:0;min-height:0}
+.btn-tile.main .ic{background:rgba(255,255,255,.2);color:#fff}
+.btn-tile.main b{color:#fff;font-size:17px}
+.btn-tile.main small{color:rgba(255,255,255,.9)}
+.btn-tile.main span.txt{display:flex;flex-direction:column;flex:1}
+
+h2{font-size:17px;color:var(--azul);margin:22px 0 10px}
+.card{background:var(--tarjeta);border:1px solid var(--borde);border-radius:16px;padding:16px;margin:0 0 12px;box-shadow:0 2px 8px rgba(11,37,64,.05)}
+.card h3{margin:0 0 4px;font-size:16px;color:var(--azul-osc)}
+.card p{margin:4px 0;color:var(--suave);font-size:14.5px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#E6F4F8;color:var(--azul);margin:2px 0 6px}
+.tag.turq{background:#E0F8FA;color:#08848D}
+ul.lista{margin:6px 0 0;padding-left:18px;font-size:14.5px}
+ul.lista li{margin:4px 0}
+ul.lista li em{font-style:normal;font-size:12.5px;color:#08848D;font-weight:600}
+.acciones{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.b{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 14px;border-radius:12px;font-weight:600;font-size:14.5px;background:var(--azul);color:#fff;flex:1 1 auto;min-width:130px;text-align:center}
+.b.wa{background:var(--verde)}
+.b.claro{background:#E6F4F8;color:var(--azul)}
+.aviso{background:var(--aviso);border:1px solid var(--aviso-borde);border-radius:14px;padding:12px 14px;font-size:14px;color:#5A4300;margin:14px 0}
+.aviso b{color:#4A3600}
+
+/* Acordeón */
+details{background:var(--tarjeta);border:1px solid var(--borde);border-radius:14px;margin:0 0 10px;overflow:hidden}
+summary{list-style:none;padding:14px 16px;font-weight:600;color:var(--azul-osc);display:flex;align-items:center;gap:10px;cursor:pointer}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";margin-left:auto;width:9px;height:9px;border-right:2px solid var(--azul);border-bottom:2px solid var(--azul);transform:rotate(45deg);transition:.2s}
+details[open] summary::after{transform:rotate(-135deg)}
+details .in{padding:0 16px 14px}
+.nota{font-size:13px;color:#08848D;font-weight:600;margin-top:8px}
+
+/* Horario */
+.dia{display:flex;gap:12px;align-items:flex-start}
+.dia .d{min-width:84px;font-weight:700;color:var(--azul)}
+.dia .m{flex:1;font-size:14.5px}
+.dia .m div{margin:2px 0}
+.dia .m small{color:var(--suave)}
+
+/* Resultados */
+.pronto{text-align:center;padding:30px 18px}
+.pronto .circ{width:84px;height:84px;border-radius:50%;margin:0 auto 14px;background:linear-gradient(135deg,var(--azul),var(--turq));display:flex;align-items:center;justify-content:center;color:#fff}
+.pronto h3{font-size:22px;color:var(--azul);margin:0 0 6px}
+
+/* Barra inferior */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:#fff;border-top:1px solid var(--borde);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs .in{display:flex;max-width:560px;width:100%}
+nav.tabs a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 9px;font-size:11.5px;color:var(--suave);font-weight:600}
+nav.tabs a.on{color:var(--azul)}
+nav.tabs a.on svg{stroke:var(--azul)}
+
+/* Instalar */
+.instalar{display:none;background:#fff;border:2px dashed var(--celeste);border-radius:16px;padding:14px 16px;margin:16px 0 0}
+.instalar.ver{display:block}
+.instalar b{color:var(--azul-osc)}
+.instalar p{margin:6px 0 10px;font-size:14px;color:var(--suave)}
+.modal{position:fixed;inset:0;z-index:20;background:rgba(11,37,64,.55);display:none;align-items:flex-end;justify-content:center}
+.modal.ver{display:flex}
+.modal .hoja{background:#fff;border-radius:20px 20px 0 0;max-width:560px;width:100%;padding:22px 20px calc(22px + env(safe-area-inset-bottom))}
+.modal h3{margin:0 0 10px;color:var(--azul)}
+.modal ol{padding-left:20px;margin:0 0 14px}
+.modal li{margin:8px 0}
+
+.pie{text-align:center;color:var(--suave);font-size:12.5px;padding:24px 16px 8px}
+svg{flex:none}
+[hidden]{display:none!important}
+.vista{display:none}
+.vista.on{display:block;animation:ap .18s ease-out}
+@keyframes ap{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header class="top sub" id="barra" hidden>
+  <a class="back" href="#inicio" aria-label="Volver">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </a>
+  <h1 id="titulo">La Inmaculada</h1>
+  <img src="logo.png" alt="La Inmaculada">
+</header>
+
+<!-- ===================== INICIO ===================== -->
+<section class="vista" id="v-inicio" data-titulo="Inicio">
+  <div class="hero">
+    <div class="logo"><img src="logo.png" alt="Centro de Especialidades Médicas La Inmaculada C.A."></div>
+    <p>Tu salud, nuestra prioridad</p>
+    <svg class="ola" viewBox="0 0 400 46" preserveAspectRatio="none"><path d="M0 30 C 80 5, 160 50, 240 26 S 360 10, 400 24 L400 46 L0 46 Z" fill="#F3FAFB"/></svg>
+  </div>
+  <div class="wrap">
+    <div class="grid">
+      <a class="btn-tile main" href="#citas">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></svg></span>
+        <span class="txt"><b>Agendar cita</b><small>Elige tu sede y reserva en línea o por WhatsApp</small></span>
+      </a>
+      <a class="btn-tile" href="#servicios">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span>
+        <b>Estudios</b><small>Lo que hacemos en cada sede</small>
+      </a>
+      <a class="btn-tile" href="#preparacion">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></span>
+        <b>Preparación</b><small>Cómo prepararte para tu estudio</small>
+      </a>
+      <a class="btn-tile" href="#cardiologia">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
+        <b>Cardiología</b><small>Horario de los especialistas</small>
+      </a>
+      <a class="btn-tile" href="#resultados">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></span>
+        <b>Resultados</b><small>Muy pronto en línea</small>
+      </a>
+      <a class="btn-tile" href="#contacto" style="grid-column:1/-1;flex-direction:row;align-items:center;min-height:0">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <span style="display:flex;flex-direction:column"><b>Sedes y contacto</b><small>Direcciones, horario, WhatsApp y redes</small></span>
+      </a>
+    </div>
+
+    <div class="instalar" id="cajaInstalar">
+      <b>Instala la app en tu teléfono</b>
+      <p>Tendrás La Inmaculada en tu pantalla de inicio, como cualquier otra app. Es gratis y no ocupa casi espacio.</p>
+      <button class="b" id="btnInstalar" style="width:100%">Instalar app</button>
+    </div>
+
+    <div class="aviso"><b>Importante:</b> las emergencias tienen prioridad sobre las citas programadas. Si se presenta una, tu cita podría tener un breve retraso. Gracias por tu comprensión.</div>
+
+    <h2>Escríbenos por WhatsApp</h2>
+    <div class="acciones" style="margin-top:0">
+      <a class="b wa" href="https://wa.me/584247074104" target="_blank" rel="noopener">Sede Principal</a>
+      <a class="b wa" href="https://wa.me/584247007029" target="_blank" rel="noopener">La Concordia</a>
+    </div>
+    <div class="pie">Centro de Especialidades Médicas La Inmaculada C.A.<br>RIF J-50166195-2 · San Cristóbal, Táchira<br><a href="https://www.cemlainmaculada.com/" target="_blank" rel="noopener" style="color:var(--azul);font-weight:600">cemlainmaculada.com</a></div>
+  </div>
+</section>
+
+<!-- ===================== CITAS ===================== -->
+<section class="vista" id="v-citas" data-titulo="Agendar cita">
+  <div class="wrap">
+    <p style="margin:16px 0 4px;color:var(--suave)">Elige la sede donde se realiza tu estudio o consulta. Puedes reservar en línea o escribirnos por WhatsApp.</p>
+
+    <div class="card" style="margin-top:12px">
+      <span class="tag">Sede Principal (Santa Teresa)</span>
+      <h3>Consultas, cardiología, ecografía y rayos X</h3>
+      <p>Calle 1 N° 3-37, Santa Teresa, 120 m bajando del Seguro Social.</p>
+      <div class="acciones">
+        <a class="b" href="https://cal.com/lainmaculada-principal/cita-sede-principal" target="_blank" rel="noopener">Reservar en línea</a>
+        <a class="b wa" href="https://wa.me/584247074104?text=Hola%2C%20quisiera%20agendar%20una%20cita%20en%20la%20Sede%20Principal" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="tag turq">La Concordia (Sucursal de Tomografía)</span>
+      <h3>Tomografía, mamografía, densitometría, ecografía y rayos X</h3>
+      <p>Av. Lucio Oquendo N° 3-112, Edif. Lisboa, planta baja.</p>
+      <div class="acciones">
+        <a class="b" href="https://cal.com/lainmaculada-sucursal/cita-sucursal-la-concordia" target="_blank" rel="noopener">Reservar en línea</a>
+        <a class="b wa" href="https://wa.me/584247007029?text=Hola%2C%20quisiera%20agendar%20una%20cita%20en%20la%20Sucursal%20La%20Concordia" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Antes de tu cita</h3>
+      <ul class="lista">
+        <li>Llega 15 minutos antes.</li>
+        <li>Trae tu cédula de identidad y tu orden médica.</li>
+        <li>Trae estudios previos, si los tienes.</li>
+        <li>Informa alergias, embarazo o enfermedades crónicas.</li>
+      </ul>
+      <div class="acciones"><a class="b claro" href="#preparacion">Ver preparación de mi estudio</a></div>
+    </div>
+    <div class="aviso"><b>Importante:</b> las emergencias tienen prioridad sobre las citas programadas. Si se presenta una, tu cita podría tener un breve retraso.</div>
+  </div>
+</section>
+
+<!-- ===================== ESTUDIOS ===================== -->
+<section class="vista" id="v-servicios" data-titulo="Estudios y consultas">
+  <div class="wrap" id="listaServicios"></div>
+</section>
+
+<!-- ===================== PREPARACIÓN ===================== -->
+<section class="vista" id="v-preparacion" data-titulo="Preparación">
+  <div class="wrap">
+    <div class="card" style="margin-top:16px">
+      <h3>Recomendaciones generales</h3>
+      <ul class="lista">
+        <li>Llega 15 minutos antes de tu cita.</li>
+        <li>Trae tu cédula de identidad.</li>
+        <li>Trae tu orden médica.</li>
+        <li>Trae estudios previos, si los tienes.</li>
+        <li>Informa alergias, embarazo o enfermedades crónicas.</li>
+      </ul>
+    </div>
+    <p style="color:var(--suave);font-size:14px;margin:4px 2px 12px">Toca tu estudio para ver cómo prepararte.</p>
+    <div id="listaPrep"></div>
+    <div class="aviso"><b>Importante:</b> las emergencias tienen prioridad sobre las citas programadas. Si se presenta una, tu cita podría tener un breve retraso. Gracias por tu comprensión.</div>
+    <div class="card"><h3>¿Tienes dudas?</h3><p>Escríbenos antes de tu cita y te indicamos la preparación exacta.</p>
+      <div class="acciones"><a class="b wa" href="https://wa.me/584247074104" target="_blank" rel="noopener">Sede Principal</a><a class="b wa" href="https://wa.me/584247007029" target="_blank" rel="noopener">La Concordia</a></div></div>
+  </div>
+</section>
+
+<!-- ===================== CARDIOLOGÍA ===================== -->
+<section class="vista" id="v-cardiologia" data-titulo="Cardiología">
+  <div class="wrap">
+    <p style="margin:16px 0 12px;color:var(--suave)">Todos los estudios y consultas de cardiología se realizan en la <b style="color:var(--azul-osc)">Sede Principal (Santa Teresa)</b>, de lunes a sábado.</p>
+    <div class="card" id="horario"></div>
+    <div class="acciones">
+      <a class="b" href="https://cal.com/lainmaculada-principal/cita-sede-principal" target="_blank" rel="noopener">Agendar cita de cardiología</a>
+      <a class="b wa" href="https://wa.me/584247074104?text=Hola%2C%20quisiera%20agendar%20una%20cita%20de%20cardiolog%C3%ADa" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <h2>Estudios de cardiología</h2>
+    <div class="card"><ul class="lista">
+      <li>Electrocardiograma</li><li>Monitor Holter</li><li>MAPA (presión arterial 24 horas)</li>
+      <li>Ecocardiograma transtorácico</li><li>Ecocardiograma transesofágico <em>· Dra. Sarai Durán</em></li>
+      <li>Eco estrés con dobutamina, esfuerzo o marcapaso</li><li>Eco carotídeo y vertebrobasilar</li>
+      <li>Prueba de esfuerzo</li><li>Espirometría</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ===================== RESULTADOS ===================== -->
+<section class="vista" id="v-resultados" data-titulo="Resultados">
+  <div class="wrap">
+    <div class="card pronto" style="margin-top:16px">
+      <div class="circ"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+      <h3>Muy pronto</h3>
+      <p>Estamos preparando el portal para que consultes tus resultados en línea desde aquí.</p>
+      <p>Mientras tanto, tus estudios se entregan en formato digital, en CD o en pendrive.</p>
+    </div>
+    <div class="acciones">
+      <a class="b wa" href="https://wa.me/584247074104?text=Hola%2C%20quisiera%20consultar%20por%20mis%20resultados" target="_blank" rel="noopener">Consultar en Sede Principal</a>
+      <a class="b wa" href="https://wa.me/584247007029?text=Hola%2C%20quisiera%20consultar%20por%20mis%20resultados" target="_blank" rel="noopener">Consultar en La Concordia</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACTO ===================== -->
+<section class="vista" id="v-contacto" data-titulo="Sedes y contacto">
+  <div class="wrap">
+    <div class="card" style="margin-top:16px">
+      <span class="tag">Sede Principal (Santa Teresa)</span>
+      <h3>Consultas médicas, cardiología y radiología</h3>
+      <p>Calle 1 N° 3-37, Santa Teresa, 120 m bajando del Seguro Social, San Cristóbal.</p>
+      <p>WhatsApp: <b>0424-7074104</b></p>
+      <div class="acciones">
+        <a class="b wa" href="https://wa.me/584247074104" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="b claro" href="tel:+584247074104">Llamar</a>
+        <a class="b claro" href="https://www.google.com/maps/search/?api=1&amp;query=Calle%201%203-37%20Santa%20Teresa%20San%20Crist%C3%B3bal%20T%C3%A1chira" target="_blank" rel="noopener">Cómo llegar</a>
+      </div>
+    </div>
+    <div class="card">
+      <span class="tag turq">La Concordia (Sucursal de Tomografía)</span>
+      <h3>Tomografía, mamografía, densitometría, ecografía y rayos X</h3>
+      <p>Av. Lucio Oquendo N° 3-112, Edif. Lisboa, planta baja, San Cristóbal.</p>
+      <p>WhatsApp: <b>0424-7007029</b></p>
+      <div class="acciones">
+        <a class="b wa" href="https://wa.me/584247007029" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="b claro" href="tel:+584247007029">Llamar</a>
+        <a class="b claro" href="https://www.google.com/maps/search/?api=1&amp;query=Av%20Lucio%20Oquendo%203-112%20Edificio%20Lisboa%20San%20Crist%C3%B3bal%20T%C3%A1chira" target="_blank" rel="noopener">Cómo llegar</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Horario</h3>
+      <p><b style="color:var(--azul-osc)">Lunes a viernes:</b> 8:00 a. m. – 5:00 p. m.</p>
+      <p><b style="color:var(--azul-osc)">Sábados:</b> cardiología, 9:00 a. m. – 12:00 m.</p>
+    </div>
+    <div class="acciones">
+      <a class="b" href="la-inmaculada-contacto.vcf" download>Guardar contacto</a>
+      <a class="b claro" href="https://www.instagram.com/lainmaculadacentromedico/" target="_blank" rel="noopener">Instagram</a>
+      <a class="b claro" href="https://www.cemlainmaculada.com/" target="_blank" rel="noopener">Página web</a>
+    </div>
+    <div class="pie">Centro de Especialidades Médicas La Inmaculada C.A. · RIF J-50166195-2<br>Atención humanizada en San Cristóbal, Táchira.</div>
+  </div>
+</section>
+
+<nav class="tabs"><div class="in">
+  <a href="#inicio" data-tab="inicio"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A6478" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v10a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2z"/></svg>Inicio</a>
+  <a href="#citas" data-tab="citas"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A6478" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Citas</a>
+  <a href="#servicios" data-tab="servicios"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A6478" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>Estudios</a>
+  <a href="#preparacion" data-tab="preparacion"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A6478" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>Preparación</a>
+  <a href="#contacto" data-tab="contacto"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A6478" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Contacto</a>
+</div></nav>
+
+<div class="modal" id="modalIOS">
+  <div class="hoja">
+    <h3>Instalar en iPhone</h3>
+    <ol>
+      <li>Abre esta página en <b>Safari</b>.</li>
+      <li>Toca el botón <b>Compartir</b> (el cuadrito con la flecha hacia arriba).</li>
+      <li>Elige <b>“Agregar a inicio”</b> y luego <b>“Agregar”</b>.</li>
+    </ol>
+    <button class="b" style="width:100%" onclick="document.getElementById('modalIOS').classList.remove('ver')">Entendido</button>
+  </div>
+</div>
+</div>
+
+<script>
+/* ---------- Contenido (editar aquí si cambia algo) ---------- */
+var PC = 'La Concordia (Sucursal de Tomografía)', SP = 'Sede Principal (Santa Teresa)';
+var SERVICIOS = [
+  {grupo:'Estudios de imágenes', items:[
+    {t:'Tomografía simple y con contraste', s:PC, l:['Tomografías simples: cráneo, órbitas, tórax, oídos, cuello, senos paranasales, abdominal','Tomografías con contraste','Reconstrucción 3D: columna cervical, dorsal y lumbosacra','Reconstrucción 3D: pelvis y articulaciones (hombro, codo, muñeca, mano, rodilla, tobillo, pie, macizo facial)'], n:'No realizamos estudios bajo sedación'},
+    {t:'Mamografía y densitometría ósea', s:PC, l:['Mamografía diagnóstica','Densitometría ósea <em>· solo pacientes de menos de 80 kg</em>']},
+    {t:'Ecografía', s:PC, l:['Eco abdominal, renal y prostática','Eco testicular y mamaria','Eco de partes blandas','Doppler testicular y de tiroides (adultos)']},
+    {t:'Rayos X digital', s:PC, l:['Radiografías simples','Radiografías especializadas'], n:'Entrega: digital, en CD o en pendrive'},
+    {t:'Estudios especiales (rayos X con contraste)', s:PC, l:['Survey óseo y miembros inferiores','Esofagograma','Estómago, esófago y duodeno <em>· miércoles y viernes</em>','Colon por enema <em>· solo niños · miércoles y viernes</em>','Cistografía <em>· solo niños · miércoles y viernes desde las 10:00 a. m.</em>','Urografía <em>· miércoles y viernes desde las 10:00 a. m.</em>','Uretrografía retrógrada','Histerosalpingografía <em>· miércoles y viernes</em>','Colangiografía trans-Kehr'], n:'Se entregan en CD con informe'},
+    {t:'Ecografía y ultrasonido', s:SP, l:['Eco abdominal, renal, prostática y vesical','Eco tiroidea, mamaria y de piel y partes blandas','Eco obstétrica, pulmonar y testicular','Eco transfontanelar (recién nacidos)'], n:'Para recién nacidos, niños y adultos'},
+    {t:'Ecografía Doppler', s:SP, l:['Doppler venoso y arterial','Doppler hepato-portal']},
+    {t:'Rayos X digital', s:SP, l:['Radiografías simples','Radiografías especializadas'], n:'Entrega: digital, en CD o en pendrive'},
+    {t:'Estudios especiales (rayos X con contraste)', s:SP, l:['Espinografía AP y AP con lateral','Fistulografía','Colon por enema y cistografía <em>· adultos</em>'], n:'Se entregan en CD con informe'}
+  ]},
+  {grupo:'Cardiología y función pulmonar', items:[
+    {t:'Estudios cardiológicos', s:SP, l:['Electrocardiograma','Monitor Holter','MAPA (presión arterial 24 horas)','Ecocardiograma transtorácico','Ecocardiograma transesofágico <em>· Dra. Sarai Durán</em>','Eco estrés con dobutamina, esfuerzo o marcapaso','Eco carotídeo y vertebrobasilar','Prueba de esfuerzo','Espirometría'], ver:'#cardiologia'}
+  ]},
+  {grupo:'Consultas médicas', items:[
+    {t:'Consultas por especialidad', s:SP, l:['Medicina interna','Cardiología','Ginecología y obstetricia','Traumatología y ortopedia','Otorrinolaringología','Pediatría','Nefrología','Urología','Gastroenterología','Cirugía: valoración preoperatoria','Servicios de enfermería (multivitamínicos)']}
+  ]}
+];
+var PREP = [
+  {t:'Tomografía', l:['Simple: no requiere ayuno, puedes venir con tu rutina habitual','Con contraste: haz un desayuno o almuerzo ligero (caldos, galletas, jugos o avena)','Con contraste: dispón de al menos 2 horas libres para completar el estudio','Informa si eres alérgico al yodo o a algún medio de contraste','Informa si eres paciente renal o diabético','Retira objetos metálicos, aretes, piercings o prendas con broches en la zona a estudiar'], n:'Importante: no realizamos estudios bajo sedación'},
+  {t:'Rayos X digital', l:['No requiere ayuno ni preparación especial','Usa ropa cómoda, sin cierres, botones metálicos ni joyas en la zona a radiografiar','Informa si existe posibilidad de embarazo','Los estudios contrastados pueden requerir indicaciones adicionales que te daremos al agendar']},
+  {t:'Ecografía', l:['Abdominal, renal o de vías biliares: ayuno de 6 a 8 horas','Pélvica o vesical: vejiga llena, toma agua e intenta no orinar antes del estudio','Obstétrica: no requiere ayuno; en etapas tempranas puede requerir vejiga llena','Tiroidea, mamaria o de piel y partes blandas: no requiere preparación especial'], n:'Consulta con nosotros la preparación exacta según tu orden médica'},
+  {t:'Ecografía Doppler', l:['Arterial o venoso: no requiere preparación especial','Informa tu peso al agendar: se tiene en cuenta para el estudio','Hepato-portal: ayuno de 6 a 8 horas','Usa ropa cómoda que permita descubrir la zona a evaluar']},
+  {t:'Mamografía y densitometría', l:['No uses desodorante, talco, crema ni perfume en axilas o pecho ese día','Ideal realizarla entre 7 y 14 días después de tu período menstrual','Informa si tienes prótesis mamarias','Densitometría: evita suplementos de calcio 24 horas antes','No uses accesorios metálicos en el cuerpo'], n:'Densitometría: solo pacientes de menos de 80 kg'},
+  {t:'Cistografía y urografía', l:['Para agendar necesitas un uroanálisis o urocultivo de máximo 2 semanas de antigüedad; si es más antiguo, debes hacerte uno nuevo','Cistografía: la doctora te pedirá un examen de orina antes del estudio','Trae tu orden médica y tus estudios de imagen previos si los tienes','En La Concordia se realizan los miércoles y viernes desde las 10:00 a. m.'], n:'Te indicaremos la preparación exacta al confirmar tu cita'},
+  {t:'Ultrasonido', l:['Usa ropa cómoda que permita descubrir la zona a evaluar','Trae tus estudios previos si los tienes'], n:'Preparación exacta según la zona a estudiar'},
+  {t:'Electrocardiograma', l:['No requiere ayuno','No uses cremas, lociones ni aceites en el pecho ese día','Usa ropa cómoda que permita acceso fácil al tórax']},
+  {t:'Monitor Holter', l:['Báñate antes de la colocación: no podrás mojar los electrodos durante el estudio','Usa ropa de dos piezas, cómoda y holgada en la parte superior','Continúa tu rutina y actividades habituales durante las 24 horas de registro','Anota síntomas y horarios si el médico te lo indica']},
+  {t:'MAPA', l:['Usa ropa cómoda de manga suelta u holgada en el brazo','Mantén tu rutina habitual, evitando ejercicio intenso ese día','No suspendas tu medicación habitual salvo indicación médica','Durante la toma, mantén el brazo relajado y quieto unos segundos']},
+  {t:'Ecocardiograma', l:['Transtorácico: no requiere ayuno','Eco estrés (dobutamina, esfuerzo o marcapaso): ayuno de 3 a 4 horas','Para eco de esfuerzo, trae ropa y calzado cómodos para ejercicio']},
+  {t:'Eco carotídeo y vertebrobasilar', l:['Usa ropa cómoda que deje el cuello descubierto','Evita collares, cadenas o accesorios en el cuello','Trae tus estudios previos si los tienes'], n:'Te indicaremos la preparación exacta al agendar tu cita'},
+  {t:'Prueba de esfuerzo', l:['La semana anterior, camina de 20 a 30 minutos cada día','Usa ropa y calzado cómodos para hacer ejercicio','Trae la lista de tus medicamentos habituales','Consulta con tu médico si debes suspender algún medicamento antes del estudio'], n:'No necesitas traer agua: la clínica te la proporciona'},
+  {t:'Espirometría', l:['Evita comidas copiosas, café y cigarrillo al menos 1 hora antes','Usa ropa cómoda, sin ajustes en el pecho o el abdomen','Consulta con tu médico si debes suspender algún inhalador antes del estudio']},
+  {t:'Valoración preoperatoria', l:['Trae la orden o la fecha tentativa de tu cirugía','Trae tus exámenes de laboratorio recientes y la lista de tus medicamentos']},
+  {t:'Consultas especializadas', l:['Trae tus estudios e informes médicos previos','Trae la lista de tus medicamentos actuales','Llega 15 minutos antes de tu cita']}
+];
+var HORARIO = [
+  ['Lunes',[['Dr. Luis Rico','9:00 a. m. – 2:00 p. m.'],['Dr. Hildemar Enzalzado','9:00 a. m. – 12:00 m.']]],
+  ['Martes',[['Dra. Sarai Durán','9:00 a. m. – 4:00 p. m.'],['Dr. Hildemar Enzalzado','9:00 a. m. – 12:00 m.']]],
+  ['Miércoles',[['Dr. Hildemar Enzalzado','9:00 a. m. – 12:00 m.']]],
+  ['Jueves',[['Dr. Faiber Chacón','9:00 a. m. – 2:00 p. m.']]],
+  ['Viernes',[['Dra. Sarai Durán','9:00 a. m. – 4:00 p. m.'],['Dr. Hildemar Enzalzado','9:00 a. m. – 12:00 m.']]],
+  ['Sábado',[['Dra. Sarai Durán','9:00 a. m. – 12:00 m.'],['Dr. Hildemar Enzalzado','9:00 a. m. – 12:00 m.']]]
+];
+
+/* ---------- Pintar contenido ---------- */
+function lista(l){return '<ul class="lista">'+l.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>'}
+(function(){
+  var h='';
+  SERVICIOS.forEach(function(g){
+    h+='<h2>'+g.grupo+'</h2>';
+    g.items.forEach(function(it){
+      h+='<div class="card"><span class="tag'+(it.s===PC?' turq':'')+'">'+it.s+'</span><h3>'+it.t+'</h3>'+lista(it.l)+(it.n?'<div class="nota">'+it.n+'</div>':'')+
+        (it.ver?'<div class="acciones"><a class="b claro" href="'+it.ver+'">Ver horario de cardiología</a></div>':'')+'</div>';
+    });
+  });
+  h+='<div class="acciones" style="margin:6px 0 10px"><a class="b" href="#citas">Agendar cita</a><a class="b claro" href="#preparacion">Cómo prepararme</a></div>';
+  document.getElementById('listaServicios').innerHTML=h;
+
+  document.getElementById('listaPrep').innerHTML=PREP.map(function(p){
+    return '<details><summary>'+p.t+'</summary><div class="in">'+lista(p.l)+(p.n?'<div class="nota">'+p.n+'</div>':'')+'</div></details>';
+  }).join('');
+
+  var hoy=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'][new Date().getDay()];
+  document.getElementById('horario').innerHTML=HORARIO.map(function(d,i){
+    return (i?'<hr style="border:0;border-top:1px solid var(--borde);margin:10px 0">':'')+'<div class="dia"><div class="d">'+d[0]+(d[0]===hoy?'<br><small style="color:#08848D;font-weight:600">Hoy</small>':'')+'</div><div class="m">'+
+      d[1].map(function(m){return '<div><b>'+m[0]+'</b><br><small>'+m[1]+'</small></div>'}).join('')+'</div></div>';
+  }).join('');
+})();
+
+/* ---------- Navegación entre pantallas ---------- */
+function ir(){
+  var id=(location.hash||'#inicio').slice(1);
+  if(!document.getElementById('v-'+id)) id='inicio';
+  document.querySelectorAll('.vista').forEach(function(v){v.classList.toggle('on',v.id==='v-'+id)});
+  var barra=document.getElementById('barra');
+  barra.hidden=(id==='inicio');
+  document.getElementById('titulo').textContent=document.getElementById('v-'+id).getAttribute('data-titulo');
+  var tab={citas:'citas',servicios:'servicios',cardiologia:'servicios',preparacion:'preparacion',contacto:'contacto',resultados:'inicio'}[id]||'inicio';
+  document.querySelectorAll('nav.tabs a').forEach(function(a){a.classList.toggle('on',a.getAttribute('data-tab')===tab)});
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',ir); ir();
+
+/* ---------- Instalar la app ---------- */
+var standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+var ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+var caja=document.getElementById('cajaInstalar'), aviso=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();aviso=e;if(!standalone)caja.classList.add('ver')});
+if(ios && !standalone) caja.classList.add('ver');
+document.getElementById('btnInstalar').addEventListener('click',function(){
+  if(aviso){aviso.prompt();aviso.userChoice.then(function(){aviso=null;caja.classList.remove('ver')});}
+  else if(ios){document.getElementById('modalIOS').classList.add('ver');}
+  else{alert('Abre el menú del navegador (⋮) y elige "Instalar app" o "Agregar a la pantalla principal".');}
+});
+window.addEventListener('appinstalled',function(){caja.classList.remove('ver')});
+
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js')})}
+</script>
+</body>
+</html>

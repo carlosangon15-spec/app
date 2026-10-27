@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:;La Inmaculada C.A.;;;
+FN:La Inmaculada C.A.
+ORG:Centro de Especialidades Médicas La Inmaculada C.A.
+TEL;TYPE=CELL;TYPE=VOICE:+58 424 7074104
+TEL;TYPE=CELL;TYPE=VOICE:+58 424 7007029
+ADR;TYPE=WORK:;;Calle 1 N° 3-37\, Santa Teresa (Sede Principal);San Cristóbal;Táchira;;Venezuela
+ADR;TYPE=WORK:;;Av. Lucio Oquendo N° 3-112\, Edif. Lisboa PB (La Concordia);San Cristóbal;Táchira;;Venezuela
+URL:https://www.cemlainmaculada.com/
+X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/lainmaculadacentromedico/
+NOTE:WhatsApp Sede Principal 0424-7074104 · La Concordia 0424-7007029. Tu salud\, nuestra prioridad.
+END:VCARD
