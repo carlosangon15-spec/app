@@ -14,6 +14,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="La Inmaculada">
 <style>
+@font-face{font-family:'Lato';font-weight:700;font-display:swap;src:url(lato-700.woff2) format('woff2')}
+@font-face{font-family:'Lato';font-weight:900;font-display:swap;src:url(lato-900.woff2) format('woff2')}
+@font-face{font-family:'Nunito';font-weight:900;font-display:swap;src:url(nunito-900.woff2) format('woff2')}
 :root{
   --azul:#0A67BC; --azul-osc:#0B2540; --turq:#0CC4D1; --celeste:#65CFF3;
   --fondo:#F3FAFB; --tarjeta:#fff; --texto:#24384A; --suave:#4A6478; --borde:#D6E8F0;
@@ -30,11 +33,18 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .top .back{width:36px;height:36px;border-radius:50%;display:none;align-items:center;justify-content:center;background:rgba(255,255,255,.16)}
 .top.sub .back{display:flex}
 .top h1{margin:0;font-size:18px;font-weight:700;flex:1}
-.top img{height:34px;width:auto;filter:drop-shadow(0 0 .8px #fff) drop-shadow(0 0 .8px #fff)}
+.top img{height:38px;width:auto}
 
 /* Portada */
 .hero{background:radial-gradient(120% 70% at 50% 0%,#1A4A78 0%,#0E2B49 45%,#0A1F35 100%);color:#fff;padding:calc(26px + env(safe-area-inset-top)) 16px 64px;text-align:center;position:relative;overflow:hidden}
-.hero .logo img{width:min(340px,86vw);height:auto;display:block;margin:0 auto;filter:drop-shadow(0 0 1.2px #fff) drop-shadow(0 0 1.2px #fff) drop-shadow(0 0 1px #fff)}
+.marca{display:flex;align-items:center;justify-content:center;gap:12px;max-width:100%}
+.marca img{flex:none;height:clamp(70px,21vw,96px);width:auto}
+.marca .mtx{display:flex;flex-direction:column;align-items:flex-start;text-align:left;min-width:0}
+.marca .m1{font:900 clamp(8px,2.4vw,11px)/1.2 'Lato',Arial,sans-serif;letter-spacing:.1em;white-space:nowrap;text-transform:uppercase;color:#BFD8EA}
+.marca .m2{font:900 clamp(26px,8vw,37px)/1.02 'Nunito',Arial,sans-serif;color:#fff;letter-spacing:-.01em;margin:3px 0 4px;white-space:nowrap}
+.marca .m2 b{font-weight:900;color:var(--turq)}
+.marca .m2 small{font:900 .42em/1 'Nunito',Arial,sans-serif;color:var(--turq);margin-left:3px;letter-spacing:.02em}
+.marca .m3{font:700 clamp(8px,2.4vw,11px)/1.2 'Lato',Arial,sans-serif;letter-spacing:.2em;white-space:nowrap;text-transform:uppercase;color:#8FA9BF}
 .hero .linea{width:120px;height:4px;border-radius:4px;margin:14px auto 0;background:linear-gradient(90deg,var(--azul),var(--turq))}
 .hero p{margin:14px 0 0;font-size:17px;font-weight:600;letter-spacing:.2px}
 .hero svg.ola{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:46px}
@@ -122,13 +132,13 @@ svg{flex:none}
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
   </a>
   <h1 id="titulo">La Inmaculada</h1>
-  <img src="logo-transparente.png" alt="La Inmaculada">
+  <img src="emblema.webp" alt="La Inmaculada">
 </header>
 
 <!-- ===================== INICIO ===================== -->
 <section class="vista" id="v-inicio" data-titulo="Inicio">
   <div class="hero">
-    <div class="logo"><img src="logo-transparente.png" alt="Centro de Especialidades Médicas La Inmaculada C.A."></div>
+    <div class="marca" role="img" aria-label="Centro de Especialidades Médicas La Inmaculada C.A."><img src="emblema.webp" alt=""><div class="mtx"><span class="m1">Centro de Especialidades Médicas</span><span class="m2">La <b>Inmaculada</b><small>C.A.</small></span><span class="m3">RIF J-50166195-2</span></div></div>
     <div class="linea"></div>
     <p>Tu salud, nuestra prioridad</p>
     <svg class="ola" viewBox="0 0 400 46" preserveAspectRatio="none"><path d="M0 30 C 80 5, 160 50, 240 26 S 360 10, 400 24 L400 46 L0 46 Z" fill="#F3FAFB"/></svg>
