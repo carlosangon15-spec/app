@@ -1,6 +1,6 @@
 // Guarda la app en el teléfono para que abra rápido y funcione sin internet.
 // Si cambias algo en la app, sube el número de versión (v1 -> v2) para que los teléfonos se actualicen.
-var VERSION = 'la-inmaculada-v3';
+var VERSION = 'la-inmaculada-v4';
 var ARCHIVOS = ['./', 'index.html', 'manifest.webmanifest', 'logo.png', 'logo-transparente.png', 'emblema.webp', 'lato-700.woff2', 'lato-900.woff2', 'nunito-900.woff2', 'icon-192.png', 'icon-512.png',
   'icon-maskable-512.png', 'apple-touch-icon.png', 'favicon.png', 'la-inmaculada-contacto.vcf'];
 

@@ -96,6 +96,12 @@ details .in{padding:0 16px 14px}
 .pronto{text-align:center;padding:30px 18px}
 .pronto .circ{width:84px;height:84px;border-radius:50%;margin:0 auto 14px;background:linear-gradient(135deg,var(--azul),var(--turq));display:flex;align-items:center;justify-content:center;color:#fff}
 .pronto h3{font-size:22px;color:var(--azul);margin:0 0 6px}
+.card .res-tit{font-size:21px;color:var(--azul);margin:0 0 6px;text-align:center}
+.card .res-sub{text-align:center;color:var(--suave);font-size:14.5px;margin:0 0 14px}
+#mis-resultados{min-height:120px}
+.card:has(.mr-tarjeta){background:none;border:0;box-shadow:none;padding:0}
+.card .res-offline{display:none;text-align:center;color:#B4232A;font-weight:600;font-size:14px;margin:10px 0 0}
+.res-ayuda{text-align:center;color:var(--suave);font-size:14px;margin:18px 0 8px}
 
 /* Barra inferior */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;background:#fff;border-top:1px solid var(--borde);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom)}
@@ -163,7 +169,7 @@ svg{flex:none}
       </a>
       <a class="btn-tile" href="#resultados">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></span>
-        <b>Resultados</b><small>Muy pronto en línea</small>
+        <b>Resultados</b><small>Consulta tus estudios e informes</small>
       </a>
       <a class="btn-tile" href="#contacto" style="grid-column:1/-1;flex-direction:row;align-items:center;min-height:0">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
@@ -275,17 +281,19 @@ svg{flex:none}
 <!-- ===================== RESULTADOS ===================== -->
 <section class="vista" id="v-resultados" data-titulo="Resultados">
   <div class="wrap">
-    <div class="card pronto" style="margin-top:16px">
-      <div class="circ"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-      <h3>Muy pronto</h3>
-      <p>Estamos preparando el portal para que consultes tus resultados en línea desde aquí.</p>
-      <p>Mientras tanto, tus estudios se entregan en formato digital, en CD o en pendrive.</p>
+    <div class="card" style="margin-top:16px">
+      <h3 class="res-tit">Mis resultados</h3>
+      <p class="res-sub">Escribe tu número de cédula y tu fecha de nacimiento (la misma que diste en recepción) y toca "Ver mis resultados".</p>
+      <div id="mis-resultados"></div>
+      <p class="res-offline" id="resOffline">Para ver tus resultados necesitas conexión a internet.</p>
     </div>
+    <p class="res-ayuda">¿No aparece tu estudio o tu informe? Escríbenos:</p>
     <div class="acciones">
       <a class="b wa" href="https://wa.me/584247074104?text=Hola%2C%20quisiera%20consultar%20por%20mis%20resultados" target="_blank" rel="noopener">Consultar en Sede Principal</a>
       <a class="b wa" href="https://wa.me/584247007029?text=Hola%2C%20quisiera%20consultar%20por%20mis%20resultados" target="_blank" rel="noopener">Consultar en La Concordia</a>
     </div>
   </div>
+  <script src="https://cemlainmaculada.nitidapacs.com/portal/recuadro.js" data-color="#0A67BC" data-acento="#0CC4D1" async onerror="document.getElementById('resOffline').style.display='block'"></script>
 </section>
 
 <!-- ===================== CONTACTO ===================== -->
