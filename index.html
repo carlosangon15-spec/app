@@ -30,10 +30,15 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 
 /* Cabecera */
 .top{position:sticky;top:0;z-index:5;background:linear-gradient(135deg,#0A1F35 0%,#0E2B49 55%,#1A4A78 100%);border-bottom:3px solid var(--turq);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 10px rgba(11,37,64,.25)}
-.top .back{width:36px;height:36px;border-radius:50%;display:none;align-items:center;justify-content:center;background:rgba(255,255,255,.16)}
+.top .back{height:36px;padding:0 14px 0 8px;border-radius:18px;display:none;align-items:center;gap:2px;background:rgba(255,255,255,.16);color:#fff;font:700 14px/1 inherit;border:0;cursor:pointer;flex:none}
+.salir{height:36px;padding:0 12px;border-radius:18px;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);color:#fff;font:700 13px/1 inherit;cursor:pointer;flex:none}
+.salir svg{flex:none}
+.hero .salir{position:absolute;top:calc(10px + env(safe-area-inset-top));right:12px;z-index:2}
+.hero{padding-top:calc(58px + env(safe-area-inset-top)) !important}
+.top h1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .top.sub .back{display:flex}
 .top h1{margin:0;font-size:18px;font-weight:700;flex:1}
-.top img{height:38px;width:auto}
+.top img{height:30px;width:auto}
 
 /* Portada */
 .hero{background:radial-gradient(120% 70% at 50% 0%,#1A4A78 0%,#0E2B49 45%,#0A1F35 100%);color:#fff;padding:calc(26px + env(safe-area-inset-top)) 16px 64px;text-align:center;position:relative;overflow:hidden}
@@ -134,16 +139,17 @@ svg{flex:none}
 <div class="app">
 
 <header class="top sub" id="barra" hidden>
-  <a class="back" href="#inicio" aria-label="Volver">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-  </a>
+  <button class="back" type="button" id="btnAtras" aria-label="Regresar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Atrás
+  </button>
   <h1 id="titulo">La Inmaculada</h1>
-  <img src="emblema.webp" alt="La Inmaculada">
+  <button class="salir" type="button" data-salir aria-label="Salir de la app"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Salir</button>
 </header>
 
 <!-- ===================== INICIO ===================== -->
 <section class="vista" id="v-inicio" data-titulo="Inicio">
   <div class="hero">
+    <button class="salir" type="button" data-salir aria-label="Salir de la app"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Salir</button>
     <div class="marca" role="img" aria-label="Centro de Especialidades Médicas La Inmaculada C.A."><img src="emblema.webp" alt=""><div class="mtx"><span class="m1">Centro de Especialidades Médicas</span><span class="m2">La <b>Inmaculada</b><small>C.A.</small></span><span class="m3">RIF J-50166195-2</span></div></div>
     <div class="linea"></div>
     <p>Tu salud, nuestra prioridad</p>
@@ -343,6 +349,14 @@ svg{flex:none}
   <a href="#contacto" data-tab="contacto"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A6478" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Contacto</a>
 </div></nav>
 
+<div class="modal" id="modalSalir">
+  <div class="hoja">
+    <h3>Salir de la app</h3>
+    <p style="margin:0 0 14px">Para cerrar la app, toca el botón de <b>inicio</b> de tu teléfono o desliza hacia arriba desde el borde de abajo. La app queda guardada y la puedes abrir cuando quieras.</p>
+    <button class="b" style="width:100%" onclick="document.getElementById('modalSalir').classList.remove('ver')">Entendido</button>
+  </div>
+</div>
+
 <div class="modal" id="modalIOS">
   <div class="hoja">
     <h3>Instalar en iPhone</h3>
@@ -442,7 +456,22 @@ function ir(){
   document.querySelectorAll('nav.tabs a').forEach(function(a){a.classList.toggle('on',a.getAttribute('data-tab')===tab)});
   window.scrollTo(0,0);
 }
-window.addEventListener('hashchange',ir); ir();
+var pila=[(location.hash||'#inicio')];
+window.addEventListener('hashchange',function(){
+  var h=location.hash||'#inicio';
+  if(pila.length>1 && pila[pila.length-2]===h) pila.pop(); else pila.push(h);
+  ir();
+});
+ir();
+/* Atrás: vuelve a la pantalla anterior; si no hay, a Inicio */
+document.getElementById('btnAtras').addEventListener('click',function(){
+  if(pila.length>1) history.back(); else location.hash='#inicio';
+});
+/* Salir: intenta cerrar la app; si el teléfono no lo permite, explica cómo */
+document.querySelectorAll('[data-salir]').forEach(function(b){b.addEventListener('click',function(){
+  try{window.close();}catch(e){}
+  setTimeout(function(){document.getElementById('modalSalir').classList.add('ver');},300);
+})});
 
 /* ---------- Instalar la app ---------- */
 var standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
